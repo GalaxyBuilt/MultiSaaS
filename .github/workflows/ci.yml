@@ -1,0 +1,73 @@
+name: MultiSaaS CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─── Backend Tests ────────────────────────────────────────────────────────────
+  backend-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: multisaas
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: multisaas_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - name: Install backend deps
+        run: cd backend && npm ci
+      - name: Generate Prisma client
+        run: cd backend && npx prisma generate
+        env:
+          DATABASE_URL: postgresql://multisaas:password@localhost:5432/multisaas_test
+      - name: Run migrations
+        run: cd backend && npx prisma migrate deploy
+        env:
+          DATABASE_URL: postgresql://multisaas:password@localhost:5432/multisaas_test
+      - name: Run backend tests
+        run: cd backend && npm test
+        env:
+          DATABASE_URL: postgresql://multisaas:password@localhost:5432/multisaas_test
+          JWT_SECRET: test-secret
+
+  # ─── Frontend Tests ───────────────────────────────────────────────────────────
+  frontend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - name: Install frontend deps
+        run: cd frontend && npm ci
+      - name: Build frontend
+        run: cd frontend && npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:4000/api
+      - name: Run frontend tests
+        run: cd frontend && npm test -- --watchAll=false
+
+  # ─── Docker Build ─────────────────────────────────────────────────────────────
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [backend-test, frontend-test]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -f docker/Dockerfile.backend -t multisaas-backend .
+      - name: Test docker-compose
+        run: docker-compose -f docker/docker-compose.yaml config

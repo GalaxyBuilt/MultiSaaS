@@ -1,0 +1,27 @@
+{
+  "name": "multisaas",
+  "version": "1.0.0",
+  "description": "Open-source SaaS portfolio tracker for founders",
+  "private": true,
+  "workspaces": ["frontend", "backend", "packages/*"],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
+    "test": "npm run test --workspace=backend && npm run test --workspace=frontend",
+    "test:all": "jest --projects tests/",
+    "db:migrate": "cd db && npx prisma migrate dev",
+    "db:seed": "cd db && npx ts-node seeds/seed.ts",
+    "db:studio": "cd db && npx prisma studio",
+    "docker:up": "docker-compose -f docker/docker-compose.yaml up --build",
+    "docker:down": "docker-compose -f docker/docker-compose.yaml down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "@GalaxyBuilt on X",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/multisaas"
+  }
+}

@@ -1,0 +1,220 @@
+// db/schema.prisma
+// MultiSaaS — Database Schema
+// PostgreSQL + Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// USERS & AUTH
+// ─────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(OWNER)
+  avatarUrl    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  projects     ProjectMember[]
+  refreshTokens RefreshToken[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  VIEWER
+}
+
+// ─────────────────────────────────────────────
+// SAAS PROJECTS
+// ─────────────────────────────────────────────
+
+model Project {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String?
+  logo        String?
+  website     String?
+  status      ProjectStatus @default(ACTIVE)
+  currency    String        @default("USD")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  members     ProjectMember[]
+  revenue     RevenueEntry[]
+  expenses    ExpenseEntry[]
+  metrics     MonthlyMetric[]
+  integrations Integration[]
+
+  @@map("projects")
+}
+
+model ProjectMember {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  role      Role     @default(VIEWER)
+  joinedAt  DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@map("project_members")
+}
+
+enum ProjectStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+// ─────────────────────────────────────────────
+// REVENUE
+// ─────────────────────────────────────────────
+
+model RevenueEntry {
+  id          String        @id @default(cuid())
+  projectId   String
+  amount      Float
+  currency    String        @default("USD")
+  type        RevenueType
+  description String?
+  source      String?       // "stripe", "paypal", "manual", etc.
+  externalId  String?       // ID from payment processor
+  date        DateTime
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, date])
+  @@map("revenue_entries")
+}
+
+enum RevenueType {
+  SUBSCRIPTION
+  ONE_TIME
+  REFUND
+  UPGRADE
+  DOWNGRADE
+}
+
+// ─────────────────────────────────────────────
+// EXPENSES
+// ─────────────────────────────────────────────
+
+model ExpenseEntry {
+  id          String          @id @default(cuid())
+  projectId   String
+  amount      Float
+  currency    String          @default("USD")
+  category    ExpenseCategory
+  description String
+  vendor      String?
+  date        DateTime
+  recurring   Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, date])
+  @@map("expense_entries")
+}
+
+enum ExpenseCategory {
+  INFRASTRUCTURE
+  MARKETING
+  SALARIES
+  SOFTWARE
+  LEGAL
+  SUPPORT
+  MISC
+}
+
+// ─────────────────────────────────────────────
+// MONTHLY METRICS (Pre-aggregated for performance)
+// ─────────────────────────────────────────────
+
+model MonthlyMetric {
+  id              String   @id @default(cuid())
+  projectId       String
+  year            Int
+  month           Int      // 1-12
+  mrr             Float    @default(0)
+  arr             Float    @default(0)
+  totalRevenue    Float    @default(0)
+  totalExpenses   Float    @default(0)
+  netProfit       Float    @default(0)
+  newCustomers    Int      @default(0)
+  churnedCustomers Int     @default(0)
+  activeCustomers Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, year, month])
+  @@map("monthly_metrics")
+}
+
+// ─────────────────────────────────────────────
+// INTEGRATIONS (for future Stripe, PayPal, etc.)
+// ─────────────────────────────────────────────
+
+model Integration {
+  id           String            @id @default(cuid())
+  projectId    String
+  provider     IntegrationProvider
+  status       IntegrationStatus @default(PENDING)
+  accessToken  String?           // encrypted
+  refreshToken String?           // encrypted
+  metadata     Json?
+  lastSyncedAt DateTime?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, provider])
+  @@map("integrations")
+}
+
+enum IntegrationProvider {
+  STRIPE
+  PAYPAL
+  PLAID
+  QUICKBOOKS
+}
+
+enum IntegrationStatus {
+  PENDING
+  ACTIVE
+  ERROR
+  DISCONNECTED
+}
