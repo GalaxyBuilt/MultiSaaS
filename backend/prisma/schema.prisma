@@ -364,6 +364,7 @@ enum IntegrationProvider {
   WISE
   QUICKBOOKS
   XERO
+  PLAID
 }
 
 enum IntegrationStatus {

@@ -10,6 +10,7 @@ import projectRoutes from './routes/projects'
 import dashboardRoutes from './routes/dashboard'
 import integrationRoutes from './routes/integrationsRoutes'
 import aiRoutes from './controllers/aiController'
+import plaidRoutes from './routes/plaidRoutes'
 import { notificationsRouter } from './services/notifications.service'
 import { errorHandler } from './middleware/errorHandler'
 import { notFound } from './middleware/notFound'
@@ -46,6 +47,10 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/projects', projectRoutes)
 app.use('/api/dashboard', dashboardRoutes)
+app.use('/api/integrations', integrationRoutes)
+app.use('/api/ai', aiRoutes)
+app.use('/api/plaid', plaidRoutes)
+app.use('/api/notifications', notificationsRouter)
 
 // ─── Error Handling ───────────────────────────────────────────────────────────
 
