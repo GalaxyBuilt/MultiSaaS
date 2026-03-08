@@ -8,23 +8,28 @@ import rateLimit from 'express-rate-limit'
 import authRoutes from './routes/auth'
 import projectRoutes from './routes/projects'
 import dashboardRoutes from './routes/dashboard'
+import integrationRoutes from './routes/integrationsRoutes'
+import aiRoutes from './controllers/aiController'
+import { notificationsRouter } from './services/notifications.service'
 import { errorHandler } from './middleware/errorHandler'
 import { notFound } from './middleware/notFound'
 
 const app = express()
 
-// ─── Security & Middleware ─────────────────────────────────────────────────────
+// ─── Security ──────────────────────────────────────────────────────────────────
 
 app.use(helmet())
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true,
 }))
-app.use(morgan('dev'))
-app.use(express.json())
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
+
+// Raw body for webhook signature verification
+app.use('/api/webhooks', express.raw({ type: 'application/json' }))
+app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true }))
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
