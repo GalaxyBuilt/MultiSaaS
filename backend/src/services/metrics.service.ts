@@ -3,9 +3,6 @@
 // Recalculates MRR, ARR, churn, margins from real revenue/expense data
 
 import { PrismaClient } from '@prisma/client'
-import { stripeService } from './stripe.service'
-import { Router } from 'express'
-import { authenticate } from '../middleware/auth'
 
 const prisma = new PrismaClient()
 
@@ -48,32 +45,32 @@ export class MetricsService {
 
     // Revenue breakdown
     const subscriptionRevenue = revenueEntries
-      .filter(r => r.type === 'SUBSCRIPTION' && r.status === 'COMPLETED')
-      .reduce((s, r) => s + r.amountDecimal, 0)
+      .filter((r: any) => r.type === 'SUBSCRIPTION' && r.status === 'COMPLETED')
+      .reduce((s: number, r: any) => s + r.amountDecimal, 0)
 
     const oneTimeRevenue = revenueEntries
-      .filter(r => r.type === 'ONE_TIME' && r.status === 'COMPLETED')
-      .reduce((s, r) => s + r.amountDecimal, 0)
+      .filter((r: any) => r.type === 'ONE_TIME' && r.status === 'COMPLETED')
+      .reduce((s: number, r: any) => s + r.amountDecimal, 0)
 
     const totalRefunds = revenueEntries
-      .filter(r => r.type === 'REFUND')
-      .reduce((s, r) => s + Math.abs(r.amountDecimal), 0)
+      .filter((r: any) => r.type === 'REFUND')
+      .reduce((s: number, r: any) => s + Math.abs(r.amountDecimal), 0)
 
     const totalRevenue = subscriptionRevenue + oneTimeRevenue - totalRefunds
 
     // Expense total
-    const totalExpenses = expenseEntries.reduce((s, e) => s + e.amount, 0)
+    const totalExpenses = expenseEntries.reduce((s: number, e: any) => s + e.amount, 0)
     const netProfit = totalRevenue - totalExpenses
     const grossMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0
 
     // MRR — from active subscriptions this month
-    const activeSubs = revenueEntries.filter(r => r.type === 'SUBSCRIPTION' && r.status === 'COMPLETED')
-    const mrr = activeSubs.reduce((s, r) => s + r.amountDecimal, 0)
+    const activeSubs = revenueEntries.filter((r: any) => r.type === 'SUBSCRIPTION' && r.status === 'COMPLETED')
+    const mrr = activeSubs.reduce((s: number, r: any) => s + r.amountDecimal, 0)
     const arr = mrr * 12
 
     // Customer counts — approximate from unique customerIds
     const uniqueCustomers = new Set(
-      revenueEntries.filter(r => r.customerId).map(r => r.customerId!)
+      revenueEntries.filter((r: any) => r.customerId).map((r: any) => r.customerId!)
     )
     const activeCustomers = uniqueCustomers.size
 
@@ -83,16 +80,16 @@ export class MetricsService {
     const prevRevenue = await prisma.revenueEntry.findMany({
       where: { projectId, date: { gte: prevMonthDate, lte: prevMonthEnd }, type: 'SUBSCRIPTION' },
     })
-    const prevCustomers = new Set(prevRevenue.filter(r => r.customerId).map(r => r.customerId!))
-    const churnedCustomers = [...prevCustomers].filter(id => !uniqueCustomers.has(id)).length
-    const newCustomers = [...uniqueCustomers].filter(id => !prevCustomers.has(id)).length
+    const prevCustomers = new Set(prevRevenue.filter((r: any) => r.customerId).map((r: any) => r.customerId!))
+    const churnedCustomers = [...prevCustomers].filter((id: any) => !uniqueCustomers.has(id)).length
+    const newCustomers = [...uniqueCustomers].filter((id: any) => !prevCustomers.has(id)).length
     const churnRate = prevCustomers.size > 0 ? (churnedCustomers / prevCustomers.size) * 100 : 0
 
     // ARPU
     const arpu = activeCustomers > 0 ? mrr / activeCustomers : 0
 
     // Cash & runway
-    const cashBalance = bankAccounts.reduce((s, a) => s + a.balanceCurrent, 0)
+    const cashBalance = bankAccounts.reduce((s: number, a: any) => s + a.balanceCurrent, 0)
     const burnRate = totalExpenses // monthly burn
     const runway = burnRate > 0 ? cashBalance / burnRate : 999
 

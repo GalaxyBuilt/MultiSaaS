@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import { authenticate } from '../middleware/auth'
 import { PrismaClient } from '@prisma/client'
-import { aiService } from '../services/ai/ai.service'
+import { aiService } from '../services/ai.service'
 import { encrypt } from '../utils/crypto'
 
 const router = Router()
@@ -27,7 +27,7 @@ router.get('/config', async (req, res, next) => {
 // POST /api/ai/config
 router.post('/config', async (req, res, next) => {
   try {
-    const { provider, apiKey, model, isDefault, metadata } = req.body
+    const { provider, apiKey, model, isDefault } = req.body
     if (!provider || !apiKey || !model) return res.status(400).json({ error: 'provider, apiKey, model required' })
 
     if (isDefault) {
@@ -41,7 +41,6 @@ router.post('/config', async (req, res, next) => {
         apiKey: encrypt(apiKey),
         model,
         isDefault: isDefault || false,
-        metadata,
       },
       select: { id: true, provider: true, model: true, isDefault: true, createdAt: true },
     })

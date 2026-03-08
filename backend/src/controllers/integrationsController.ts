@@ -1,4 +1,5 @@
 // backend/src/controllers/integrationsController.ts
+
 import { Request, Response, NextFunction } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { stripeService } from '../services/stripe.service'
@@ -16,6 +17,7 @@ export async function getIntegrations(req: Request, res: Response, next: NextFun
       select: {
         id: true, provider: true, status: true, displayName: true,
         accountId: true, lastSyncedAt: true, errorMessage: true, metadata: true,
+        // Never expose accessToken/webhookSecret
       },
     })
     res.json({ data: integrations })
@@ -136,6 +138,8 @@ export async function getSyncLogs(req: Request, res: Response, next: NextFunctio
     res.json({ data: logs })
   } catch (err) { next(err) }
 }
+
+// ─── Webhook Handlers ─────────────────────────────────────────────────────────
 
 export async function stripeWebhook(req: Request, res: Response) {
   const { projectId } = req.params

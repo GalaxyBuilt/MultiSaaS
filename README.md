@@ -1,177 +1,68 @@
-# 🚀 MultiSaaS — Open-Source SaaS Portfolio Tracker
+# 🚀 MultiSaaS
 
-> **Track multiple SaaS projects in one place. Free, open-source, built for founders.**
+**One Unified Dashboard to Manage Your Entire SaaS Portfolio.**
 
-Created by [@GalaxyBuilt](https://x.com/GalaxyBuilt) on X
+MultiSaaS is a production-ready, open-source dashboard designed for founders who manage multiple SaaS products. Stop juggling spreadsheets and disparate Stripe tabs—track your MRR, growth, traffic, and AI-powered insights for all your projects in one unified control panel.
 
----
-
-## What is MultiSaaS?
-
-MultiSaaS is a **free, self-hosted dashboard** for indie founders and SaaS operators to manage, track, and analyze all their SaaS products from a single platform. Monitor MRR, ARR, expenses, revenue, and user growth across all your projects — no vendor lock-in, no subscription required.
-
----
+![MultiSaaS Demo](https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop)
 
 ## ✨ Features
 
-- 📊 **Global Dashboard** — Aggregated metrics across all your SaaS projects
-- 💰 **Revenue Tracking** — Subscription + one-time payments per project
-- 📉 **Expense Tracking** — Categorized expenses with ledger view
-- 📈 **MRR / ARR Charts** — Monthly Recurring Revenue and Annual Run Rate
-- 👥 **User Management** — Roles, authentication, JWT-based sessions
-- 🔌 **Integration-Ready** — Stripe, PayPal, banking APIs (future)
-- 🤖 **AI-Agent Ready** — Hooks prepared for AI insights (future)
-- 🐳 **Docker Support** — One-command local setup
+- 📊 **Portfolio Overview**: Aggregated MRR, ARR, and growth metrics across all products.
+- 📁 **Project Management**: Deep dives into individual SaaS health and KPIs.
+- 🤖 **AI Insights**: Automated analysis of churn risk, traffic trends, and growth opportunities.
+- 💳 **Scaffolded Integrations**: Ready-to-use patterns for Stripe, PayPal, Paddle, and Plaid.
+- 🌐 **Multi-Currency Support**: Unified financial tracking across global markets.
+- 💎 **Premium UI**: Built with Next.js 14, TailwindCSS, and a high-performance design system.
 
----
+## 🛠 Tech Stack
 
-## 🛠 Recommended Tech Stack
+- **Frontend**: Next.js 14 (App Router), TypeScript, TailwindCSS, Recharts, Lucide.
+- **Backend (Scaffolded)**: Node.js, Express, Prisma, PostgreSQL.
+- **Deployment**: Optimized for Cloudflare Pages (Frontend) and Railway/Heroku (Backend).
 
-| Layer        | Technology                          |
-|-------------|--------------------------------------|
-| Frontend     | React 18 + Next.js 14 + Tailwind CSS |
-| Backend      | Node.js + Express (or NestJS)        |
-| Database     | PostgreSQL + Prisma ORM              |
-| Auth         | JWT (access + refresh tokens)        |
-| API          | REST + optional GraphQL              |
-| Charts       | Recharts                             |
-| Testing      | Jest + React Testing Library         |
-| CI/CD        | GitHub Actions                       |
-| Container    | Docker + docker-compose              |
+## 🚀 Quick Start (Demo Mode)
 
----
+The project runs in **Demo Mode** by default, using mock data so you can see the power of MultiSaaS without setting up a database or API keys.
 
-## 📁 Project Structure
-
-```
-multisaas/
-├── frontend/               # Next.js / React app
-│   └── src/
-│       ├── pages/          # Route pages
-│       ├── components/     # Reusable UI components
-│       ├── hooks/          # Custom React hooks
-│       ├── lib/            # API client, utilities
-│       └── types/          # TypeScript types
-├── backend/                # Express API
-│   └── src/
-│       ├── routes/         # Route definitions
-│       ├── controllers/    # Business logic
-│       ├── middleware/      # Auth, validation
-│       └── services/       # Data layer / integrations
-├── db/                     # Prisma schema + migrations
-│   ├── schema.prisma
-│   ├── seeds/              # Seed scripts
-│   └── migrations/
-├── packages/               # Shared code (monorepo)
-│   ├── shared-types/       # TypeScript interfaces
-│   └── ui-components/      # Shared UI components
-├── docker/                 # Docker configs
-├── tests/                  # Test suites
-├── scripts/                # DB seed, migration helpers
-├── .github/workflows/      # CI/CD
-└── README.md
-```
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+
-- PostgreSQL 15+
-- Docker (optional)
-
-### 1. Clone the repo
 ```bash
+# Clone the repository
 git clone https://github.com/yourusername/multisaas.git
-cd multisaas
+
+# Navigate to frontend
+cd multisaas/frontend
+
+# Install dependencies
+npm install
+
+# Run the project
+npm run dev
 ```
 
-### 2. Install dependencies
-```bash
-npm install        # root deps
-cd frontend && npm install
-cd ../backend && npm install
-```
+Visit `https://multisaas.xyz` to see the live demo.
 
-### 3. Configure environment
-```bash
-cp backend/.env.example backend/.env
-# Edit backend/.env with your DB credentials and JWT secret
-```
+## 🔧 Connecting Real Data
 
-### 4. Set up database
-```bash
-cd db
-npx prisma migrate dev --name init
-npx prisma db seed
-```
+To turn this into a real SaaS management system:
 
-### 5. Run locally
-```bash
-# Terminal 1 — Backend
-cd backend && npm run dev
+1.  **Backend Setup**: Navigate to `/backend`, set up your `.env` with a PostgreSQL URL, and run `npx prisma migrate dev`.
+2.  **API Keys**: Update `frontend/.env.local` to point to your backend URL.
+3.  **Integrations**: Plug your API keys into the scaffolded clients in `frontend/src/lib/integrations/`.
 
-# Terminal 2 — Frontend
-cd frontend && npm run dev
-```
+## 🍴 Contributing
 
-Visit: **http://localhost:3000**
+We ❤️ contributors! Whether you're adding a new integration, fixing a bug, or improving the UI, please check our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-### 6. Or use Docker
-```bash
-docker-compose up --build
-```
+1. Fork the repo.
+2. Create your feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'Add amazing feature'`).
+4. Push to the branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
+
+## ⭐ Show Your Support
+
+If you find this project useful, please consider giving it a ⭐ on GitHub to help others find it!
 
 ---
 
-## 🐳 Docker Setup
-
-```bash
-docker-compose up --build
-```
-
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:4000
-- PostgreSQL: localhost:5432
-
----
-
-## 🧪 Testing
-
-```bash
-# Backend tests
-cd backend && npm test
-
-# Frontend tests
-cd frontend && npm test
-
-# All tests
-npm run test:all
-```
-
----
-
-## 🔌 Planned Integrations
-
-- [ ] Stripe — live revenue sync
-- [ ] PayPal — payment tracking
-- [ ] Plaid — bank account connection
-- [ ] OpenAI — AI insights & forecasting
-- [ ] Slack — notifications
-
----
-
-## 🤝 Contributing
-
-PRs welcome! Please read `CONTRIBUTING.md` before submitting.
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
-
----
-
-> Built with ❤️ by [@GalaxyBuilt](https://x.com/GalaxyBuilt) on X
+Built with ❤️ by founders, for founders.

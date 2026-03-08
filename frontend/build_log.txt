@@ -1,0 +1,60 @@
+
+> multisaas-frontend@2.0.0 build
+> next build
+
+  Γû▓ Next.js 14.2.0
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7) 
+(node:27856) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+   Generating static pages (3/7) 
+(node:27972) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27808) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+   Generating static pages (5/7) 
+(node:28024) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error: No QueryClient set, use QueryClientProvider to set one
+    at i (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\chunks\238.js:3:47557)
+    at C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:16808
+    at _ (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:17717)
+    at vr (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:11:377083)
+    at nj (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46251)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47571)
+    at nN (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64546)
+    at nI (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47010)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47717)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61546) {
+  digest: '4232528577'
+}
+
+Error occurred prerendering page "/dashboard". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: No QueryClient set, use QueryClientProvider to set one
+    at i (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\chunks\238.js:3:47557)
+    at C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:16808
+    at _ (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:17717)
+    at vr (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:11:377083)
+    at nj (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46251)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47571)
+ Γ£ô Generating static pages (7/7)
+    at nN (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64546)
+    at nI (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47010)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47717)
+    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61546)
+
+> Export encountered errors on following paths:
+	/dashboard/page: /dashboard
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path C:\Users\Galaxy\MultiSaaS\frontend
+npm error workspace multisaas-frontend@2.0.0
+npm error location C:\Users\Galaxy\MultiSaaS\frontend
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build

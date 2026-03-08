@@ -1,4 +1,3 @@
-// backend/src/app.ts
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -8,8 +7,8 @@ import rateLimit from 'express-rate-limit'
 import authRoutes from './routes/auth'
 import projectRoutes from './routes/projects'
 import dashboardRoutes from './routes/dashboard'
-import integrationRoutes from './routes/integrationsRoutes'
-import aiRoutes from './controllers/aiController'
+import integrationRoutes from './routes/integrations'
+import aiRoutes from './routes/ai'
 import plaidRoutes from './routes/plaidRoutes'
 import { notificationsRouter } from './services/notifications.service'
 import { errorHandler } from './middleware/errorHandler'
@@ -31,28 +30,25 @@ app.use('/api/webhooks', express.raw({ type: 'application/json' }))
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true }))
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  message: { error: 'Too many requests, please try again later.' },
-})
-app.use('/api', limiter)
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 200 })
+const strictLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 })
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+app.use('/api', limiter)
+app.use('/api/auth', strictLimiter)
+
+// ─── Routes ────────────────────────────────────────────────────────────────────
 
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() })
+  res.json({ status: 'ok', version: '2.0.0', timestamp: new Date().toISOString() })
 })
 
 app.use('/api/auth', authRoutes)
-app.use('/api/projects', projectRoutes)
-app.use('/api/dashboard', dashboardRoutes)
-app.use('/api/integrations', integrationRoutes)
+app.use('/api', projectRoutes)
+app.use('/api', dashboardRoutes)
+app.use('/api', integrationRoutes)
 app.use('/api/ai', aiRoutes)
 app.use('/api/plaid', plaidRoutes)
 app.use('/api/notifications', notificationsRouter)
-
-// ─── Error Handling ───────────────────────────────────────────────────────────
 
 app.use(notFound)
 app.use(errorHandler)

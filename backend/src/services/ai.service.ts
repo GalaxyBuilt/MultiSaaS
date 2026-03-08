@@ -107,7 +107,7 @@ export class AIService {
       expenseByCategory[e.category] = (expenseByCategory[e.category] || 0) + e.amount
     }
 
-    const totalCash = bankAccounts.reduce((s, a) => s + a.balanceCurrent, 0)
+    const totalCash = bankAccounts.reduce((s: number, a: any) => s + a.balanceCurrent, 0)
 
     return `
 PROJECT: ${project?.name} (${project?.status})
@@ -138,11 +138,11 @@ Prior Churn Rate: ${prevMetric?.churnRate?.toFixed(2) || 0}%
 ${Object.entries(expenseByCategory).map(([cat, amt]) => `${cat}: $${amt.toFixed(2)}`).join('\n')}
 
 === RECENT REVENUE (last 10 transactions) ===
-${recentRevenue.slice(0, 10).map(r => `${r.date.toISOString().split('T')[0]} | ${r.type} | $${r.amountDecimal.toFixed(2)} | ${r.source}`).join('\n')}
+${recentRevenue.slice(0, 10).map((r: any) => `${r.date.toISOString().split('T')[0]} | ${r.type} | $${r.amountDecimal.toFixed(2)} | ${r.source}`).join('\n')}
 
 === CASH POSITIONS ===
 Total Cash: $${totalCash.toFixed(2)}
-${bankAccounts.map(a => `${a.accountName} (${a.provider}): $${a.balanceCurrent.toFixed(2)}`).join('\n')}
+${bankAccounts.map((a: any) => `${a.accountName} (${a.provider}): $${a.balanceCurrent.toFixed(2)}`).join('\n')}
     `.trim()
   }
 

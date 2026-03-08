@@ -1,6 +1,6 @@
 {
-    "name": "frontend",
-    "version": "1.0.0",
+    "name": "multisaas-frontend",
+    "version": "2.0.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -9,23 +9,30 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "axios": "^1.6.2",
-        "clsx": "^2.0.0",
-        "lucide-react": "^0.294.0",
-        "next": "14.0.4",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-plaid-link": "^4.1.1",
-        "recharts": "^2.10.3",
-        "tailwind-merge": "^2.1.0"
+        "next": "14.2.0",
+        "react": "^18.3.0",
+        "react-dom": "^18.3.0",
+        "axios": "^1.6.8",
+        "recharts": "^2.12.2",
+        "react-plaid-link": "^3.5.1",
+        "react-hook-form": "^7.51.0",
+        "zustand": "^4.5.2",
+        "@tanstack/react-query": "^5.28.9",
+        "clsx": "^2.1.0",
+        "date-fns": "^3.6.0",
+        "lucide-react": "^0.363.0",
+        "react-hot-toast": "^2.4.1",
+        "tailwind-merge": "^2.2.2"
     },
     "devDependencies": {
-        "@types/node": "^20.10.4",
-        "@types/react": "^18.2.42",
-        "@types/react-dom": "^18.2.17",
-        "autoprefixer": "^10.4.16",
-        "postcss": "^8.4.32",
-        "tailwindcss": "^3.4.0",
-        "typescript": "^5.3.3"
+        "@types/node": "^20.12.2",
+        "@types/react": "^18.2.74",
+        "@types/react-dom": "^18.2.24",
+        "autoprefixer": "^10.4.19",
+        "eslint": "^8.57.0",
+        "eslint-config-next": "14.2.0",
+        "postcss": "^8.4.38",
+        "tailwindcss": "^3.4.3",
+        "typescript": "^5.4.3"
     }
 }

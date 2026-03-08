@@ -129,7 +129,7 @@ async function createInAppNotification(projectId: string, type: string, body: st
   })
 
   await prisma.notification.createMany({
-    data: members.map(m => ({
+    data: members.map((m: any) => ({
       userId: m.userId,
       title: `Alert: ${type.replace(/_/g, ' ')}`,
       body,

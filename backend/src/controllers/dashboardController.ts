@@ -103,7 +103,7 @@ export async function getGlobalDashboard(req: Request, res: Response, next: Next
     let totalMrr = 0
     let totalCustomers = 0
 
-    const projectSummaries = projects.map((p) => {
+    const projectSummaries = projects.map((p: any) => {
       const latest = p.metrics[0]
       totalMrr += latest?.mrr || 0
       totalCustomers += latest?.activeCustomers || 0
