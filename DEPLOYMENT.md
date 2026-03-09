@@ -6,15 +6,15 @@ To get MultiSaaS live on `multisaas.xyz` for $0, follow these exact settings in 
 - Go to **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
 - Select the `MultiSaaS` repository.
 
-## 2. Build Settings (CRITICAL)
-Next.js monorepos can be tricky. Use these exact paths:
+> [!IMPORTANT]
+> **CRITICAL: FIX FOR THE "BUILD FAILED" ERROR**
+> Cloudflare is likely trying to build the entire repository (including the backend), which is causing the failure. You MUST set the **Root Directory** to `frontend` in the Cloudflare Build Settings. This tells Cloudflare to only build the demo website and ignore the server-side code.
 
-- **Project name**: `multisaas`
-- **Production branch**: `main`
+## 2. Build Settings (EXACT SETTINGS)
 - **Framework preset**: `Next.js`
-- **Root directory**: `frontend`  <-- [IMPORTANT] POINT TO THE FRONTEND FOLDER
+- **Root directory**: `frontend`  <-- [MAKE SURE THIS IS SET]
 - **Build command**: `npm run build`
-- **Build output directory**: `out` <-- [IMPORTANT] NEXT.JS STATIC EXPORT USES 'out'
+- **Build output directory**: `out`
 
 ## 3. Environment Variables
 Add this variable to ensure the demo data loads correctly:
