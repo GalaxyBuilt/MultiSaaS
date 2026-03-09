@@ -78,7 +78,7 @@ body {
     }
 
     .card-hover {
-        @apply card transition-all duration-200 hover:border-border2 hover:shadow-lg hover:shadow-accent/5;
+        @apply card transition-all duration-200 hover:border-border2 hover:shadow-lg;
     }
 
     .btn {
@@ -86,7 +86,7 @@ body {
     }
 
     .btn-primary {
-        @apply btn bg-accent text-white hover:bg-accent/90 px-4 py-2.5;
+        @apply btn bg-accent text-white hover:opacity-90 px-4 py-2.5;
     }
 
     .btn-secondary {
@@ -130,7 +130,7 @@ body {
     }
 
     .badge-blue {
-        @apply badge bg-accent/10 text-accent;
+        @apply badge bg-accent bg-opacity-10 text-accent;
     }
 
     .badge-gray {
