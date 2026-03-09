@@ -110,7 +110,7 @@ body {
     }
 
     .stat-card {
-        @apply card p-5 relative overflow-hidden group transition-all duration-200 hover:border-border2;
+        @apply card p-5 relative overflow-hidden transition-all duration-200 hover:border-border2;
     }
 
     .badge {

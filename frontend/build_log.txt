@@ -5,52 +5,68 @@
   Γû▓ Next.js 14.2.0
 
    Creating an optimized production build ...
- Γ£ô Compiled successfully
-   Linting and checking validity of types ...
-   Collecting page data ...
-   Generating static pages (0/7) ...
-   Generating static pages (1/7) 
-(node:27856) Warning: `--localstorage-file` was provided without a valid path
-(Use `node --trace-warnings ...` to show where the warning was created)
-   Generating static pages (3/7) 
-(node:27972) Warning: `--localstorage-file` was provided without a valid path
-(Use `node --trace-warnings ...` to show where the warning was created)
-(node:27808) Warning: `--localstorage-file` was provided without a valid path
-(Use `node --trace-warnings ...` to show where the warning was created)
-   Generating static pages (5/7) 
-(node:28024) Warning: `--localstorage-file` was provided without a valid path
-(Use `node --trace-warnings ...` to show where the warning was created)
-Error: No QueryClient set, use QueryClientProvider to set one
-    at i (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\chunks\238.js:3:47557)
-    at C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:16808
-    at _ (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:17717)
-    at vr (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:11:377083)
-    at nj (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46251)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47571)
-    at nN (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64546)
-    at nI (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47010)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47717)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61546) {
-  digest: '4232528577'
-}
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[2]!C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[3]!C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css': No serializer registered for PostCSSSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> PostCSSSyntaxError
+Failed to compile.
 
-Error occurred prerendering page "/dashboard". Read more: https://nextjs.org/docs/messages/prerender-error
+./src/app/globals.css:113:9
+Syntax error: C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css @apply should not be used with the 'group' utility
 
-Error: No QueryClient set, use QueryClientProvider to set one
-    at i (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\chunks\238.js:3:47557)
-    at C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:16808
-    at _ (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:1:17717)
-    at vr (C:\Users\Galaxy\MultiSaaS\frontend\.next\server\app\dashboard\page.js:11:377083)
-    at nj (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46251)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47571)
- Γ£ô Generating static pages (7/7)
-    at nN (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64546)
-    at nI (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47010)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47717)
-    at nM (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61546)
+  111 | 
+  112 |     .stat-card {
+> 113 |         @apply card p-5 relative overflow-hidden group transition-all duration-200 hover:border-border2;
+      |         ^
+  114 |     }
+  115 | 
 
-> Export encountered errors on following paths:
-	/dashboard/page: /dashboard
+./src/app/globals.css
+Syntax error: C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css @apply should not be used with the 'group' utility (113:9)
+
+  111 | 
+  112 |     .stat-card {
+> 113 |         @apply card p-5 relative overflow-hidden group transition-all duration-200 hover:border-border2;
+      |         ^
+  114 |     }
+  115 | 
+
+    at tryRunOrWebpackError (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:312989)
+    at __webpack_require_module__ (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:131165)
+    at __nested_webpack_require_153728__ (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:130607)
+    at C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:131454
+    at symbolIterator (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
+    at done (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\neo-async\async.js:1:14824)
+    at Hook.eval [as callAsync] (eval at create (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:13:28858), <anonymous>:15:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:13:26012)
+    at C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:130328
+    at symbolIterator (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\neo-async\async.js:1:14402)
+-- inner error --
+Syntax error: C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css @apply should not be used with the 'group' utility (113:9)
+
+  111 | 
+  112 |     .stat-card {
+> 113 |         @apply card p-5 relative overflow-hidden group transition-all duration-200 hover:border-border2;
+      |         ^
+  114 |     }
+  115 | 
+
+    at Object.<anonymous> (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[2]!C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[3]!C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css:1:7)
+    at C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:922493
+    at Hook.eval [as call] (eval at create (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:13:28636), <anonymous>:7:1)
+    at Hook.CALL_DELEGATE [as _call] (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:13:25906)
+    at C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:131198
+    at tryRunOrWebpackError (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:312943)
+    at __webpack_require_module__ (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:131165)
+    at __nested_webpack_require_153728__ (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:130607)
+    at C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\webpack\bundle5.js:28:131454
+    at symbolIterator (C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
+
+Generated code for C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[2]!C:\Users\Galaxy\MultiSaaS\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[3]!C:\Users\Galaxy\MultiSaaS\frontend\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css
+
+
+> Build failed because of webpack errors
 npm error Lifecycle script `build` failed with error:
 npm error code 1
 npm error path C:\Users\Galaxy\MultiSaaS\frontend
