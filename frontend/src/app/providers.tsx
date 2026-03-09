@@ -11,7 +11,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         setMounted(true)
-        const savedTheme = localStorage.getItem('theme') || 'dark'
+        const savedTheme = localStorage.getItem('theme') || 'light'
         document.documentElement.setAttribute('data-theme', savedTheme)
     }, [])
 

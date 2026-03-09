@@ -67,8 +67,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <aside className="flex flex-col h-full w-60 bg-surface border-r border-border">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-5 py-5 border-b border-border">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center font-display font-black text-white text-base flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg, #7c6aff, #00e5cc)' }}>M</div>
+        <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-border flex-shrink-0">
+          <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+        </div>
         <span className="font-display font-bold text-white text-lg">MultiSaaS</span>
         <button className="ml-auto lg:hidden text-muted hover:text-white" onClick={() => setSidebarOpen(false)}>
           <X size={18} />

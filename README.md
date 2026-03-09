@@ -15,6 +15,18 @@ MultiSaaS is a production-ready, open-source dashboard designed for founders who
 - 🌐 **Multi-Currency Support**: Unified financial tracking across global markets.
 - 💎 **Premium UI**: Built with Next.js 14, TailwindCSS, and a high-performance design system.
 
+> [!IMPORTANT]
+> **DEMO VERSION ONLY**: This repository is currently configured for a **zero-friction demonstration**. It uses mock data and simulated authentication by default. Before using this in production, you **must** follow the "Connecting Real Data" section below.
+
+## 🛡️ Security Best Practices
+
+To protect your SaaS portfolio and sensitive financial data, follow these non-negotiables:
+
+1.  **Never Commit `.env` Files**: Ensure `.env`, `.env.local`, and any file containing secrets are added to your `.gitignore`. We have provided `.env.example` templates—use these to share structure, never secrets.
+2.  **Rotate API Keys**: If you accidentally commit a Stripe, Plaid, or OpenAI key, revoke it immediately through the provider's dashboard.
+3.  **Environment Secrets**: When deploying (to Vercel, Railway, etc.), use the platform's native Environment Variable management instead of uploading files.
+4.  **Backend Validation**: Never trust client-side financial calculations. Always verify payment hashes and webhook signatures on the backend.
+
 ## 🛠 Tech Stack
 
 - **Frontend**: Next.js 14 (App Router), TypeScript, TailwindCSS, Recharts, Lucide.
@@ -27,7 +39,7 @@ The project runs in **Demo Mode** by default, using mock data so you can see the
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/multisaas.git
+git clone https://github.com/GalaxyBuilt/MultiSaaS.git
 
 # Navigate to frontend
 cd multisaas/frontend
@@ -65,4 +77,4 @@ If you find this project useful, please consider giving it a ⭐ on GitHub to he
 
 ---
 
-Built with ❤️ by founders, for founders.
+Built with ❤️ by [GalaxyBuilt](https://github.com/GalaxyBuilt) — © 2026

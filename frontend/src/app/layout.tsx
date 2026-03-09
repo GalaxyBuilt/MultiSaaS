@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Providers } from './providers'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
         description: 'One unified dashboard to track revenue, growth, and metrics across all your SaaS products.',
         images: [
             {
-                url: '/og-image.png', // We'll assume this exists or use a gradient placeholder
+                url: '/og-image.png',
                 width: 1200,
                 height: 630,
                 alt: 'MultiSaaS Dashboard Preview',
@@ -51,6 +52,19 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-DLE60TWMRZ"
+                    strategy="afterInteractive"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'G-DLE60TWMRZ');
+                    `}
+                </Script>
                 <Providers>
                     {children}
                 </Providers>

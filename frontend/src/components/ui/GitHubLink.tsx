@@ -6,7 +6,7 @@ import { Github } from 'lucide-react'
 export function GitHubLink() {
     return (
         <Link
-            href="https://github.com/galaxybuilt"
+            href="https://github.com/GalaxyBuilt/MultiSaaS"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-surface2 hover:bg-border transition-colors text-muted hover:text-text flex items-center justify-center"

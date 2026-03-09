@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Open-source SaaS portfolio tracker for founders",
   "private": true,
-  "workspaces": ["frontend", "backend", "packages/*"],
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
     "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
@@ -22,6 +26,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/multisaas"
+    "url": "https://github.com/GalaxyBuilt/MultiSaaS"
   }
 }

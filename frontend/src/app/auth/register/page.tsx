@@ -6,7 +6,7 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { authApi } from '@/lib/api'
 import { useAuthStore } from '@/lib/store'
-import { ThemeToggle, TwitterLink } from '@/components/ui'
+import { ThemeToggle, TwitterLink, GitHubLink } from '@/components/ui'
 
 export default function RegisterPage() {
     const router = useRouter()
@@ -43,6 +43,7 @@ export default function RegisterPage() {
             style={{ background: 'radial-gradient(ellipse at 70% 30%, rgba(0,229,204,0.06) 0%, transparent 60%), radial-gradient(ellipse at 20% 70%, rgba(124,106,255,0.06) 0%, transparent 50%), var(--bg)' }}>
 
             <div className="absolute top-4 right-4 flex items-center gap-2">
+                <GitHubLink />
                 <TwitterLink />
                 <ThemeToggle />
             </div>

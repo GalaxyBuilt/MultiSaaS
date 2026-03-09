@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowUpRight, TrendingUp, Users, DollarSign, Wallet } from 'lucide-react'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import { StatCard, PageHeader, PageLoading, Card } from '@/components/ui'
@@ -12,6 +13,7 @@ import { clsx } from 'clsx'
 import * as mockData from '@/lib/mock-data'
 
 export default function DashboardPage() {
+    const router = useRouter()
     const { data: globalData, isLoading: loadingGlobal } = useQuery({
         queryKey: ['dashboard-global'],
         queryFn: () => dashboardApi.global().then(r => r.data.data as GlobalDashboard),
@@ -123,15 +125,18 @@ export default function DashboardPage() {
                                         const latest = p.metrics?.[0]
                                         const color = COLORS[i % COLORS.length]
                                         return (
-                                            <tr key={p.id} className="border-b border-border/50 hover:bg-surface2/50 transition-colors">
+                                            <tr key={p.id}
+                                                onClick={() => router.push(`/projects/${p.id}`)}
+                                                className="border-b border-border/50 hover:bg-surface2/70 transition-colors cursor-pointer group/row"
+                                            >
                                                 <td className="px-5 py-3.5">
                                                     <div className="flex items-center gap-2.5">
-                                                        <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0"
+                                                        <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 transition-transform group-hover/row:scale-110"
                                                             style={{ background: `${color}15`, color }}>
                                                             {p.name[0]}
                                                         </div>
                                                         <div>
-                                                            <p className="font-display font-bold text-text text-sm">{p.name}</p>
+                                                            <p className="font-display font-bold text-text text-sm group-hover/row:text-accent transition-colors">{p.name}</p>
                                                             {p.website && <p className="text-xs text-muted">{p.website.replace('https://', '')}</p>}
                                                         </div>
                                                     </div>
@@ -160,11 +165,10 @@ export default function DashboardPage() {
                                                         {p.status}
                                                     </span>
                                                 </td>
-                                                <td className="px-5 py-3.5">
-                                                    <Link href={`/projects/${p.id}`}
-                                                        className="text-muted hover:text-accent transition-colors">
-                                                        <ArrowUpRight size={15} />
-                                                    </Link>
+                                                <td className="px-5 py-3.5 text-right">
+                                                    <div className="inline-flex w-8 h-8 rounded-lg bg-surface border border-border items-center justify-center text-muted group-hover/row:text-accent group-hover/row:border-accent/30 transition-all">
+                                                        <ArrowUpRight size={14} />
+                                                    </div>
                                                 </td>
                                             </tr>
                                         )

@@ -1,23 +1,21 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, CheckCircle2, LayoutDashboard, Zap, Shield, Globe, Star, Github, GitFork, Sparkles, Layout, Layers, Bot } from 'lucide-react'
+import { ArrowRight, CheckCircle2, LayoutDashboard, Zap, Shield, Globe, Star, Github, GitFork, Sparkles, Layout, Layers, Bot, Menu, X } from 'lucide-react'
 import { ThemeToggle, TwitterLink, GitHubLink } from '@/components/ui'
 import { useAuthStore } from '@/lib/store'
+import { clsx } from 'clsx'
 
 export default function LandingPage() {
   const router = useRouter()
   const { setAuth } = useAuthStore()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleDemoLogin = () => {
-    // Mock login for demo purposes
-    setAuth(
-      { id: 'demo-user', name: 'Demo User', email: 'demo@multisaas.xyz', role: 'SUPERADMIN' },
-      'demo-access-token',
-      'demo-refresh-token'
-    )
-    router.push('/dashboard')
+    setMobileMenuOpen(false)
+    router.push('/auth/login?demo=true')
   }
 
   return (
@@ -26,8 +24,9 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2.5 group cursor-pointer" onClick={() => router.push('/')}>
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-display font-black text-white text-xl transition-transform group-hover:scale-110"
-              style={{ background: 'linear-gradient(135deg, #7c6aff, #00e5cc)' }}>M</div>
+            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-border">
+              <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+            </div>
             <span className="font-display font-black text-text text-2xl tracking-tight">MultiSaaS</span>
           </div>
 
@@ -37,13 +36,64 @@ export default function LandingPage() {
             <a href="#open-source" className="text-sm font-bold text-muted hover:text-text transition-colors">Open Source</a>
           </div>
 
-          <div className="flex items-center gap-4">
-            <TwitterLink />
-            <ThemeToggle />
-            <button onClick={handleDemoLogin} className="btn-secondary hidden sm:flex">Demo Login</button>
-            <Link href="https://github.com/nelsonnefu/multisaas" target="_blank" className="btn-primary">
-              <Github size={18} /> <span className="hidden sm:inline">Star on GitHub</span>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-2 mr-2">
+              <TwitterLink />
+              <ThemeToggle />
+            </div>
+            <button onClick={handleDemoLogin} className="btn-secondary hidden md:flex">Demo Login</button>
+            <Link href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="btn-primary hidden sm:flex">
+              <Github size={18} /> <span>Star on GitHub</span>
             </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-muted hover:text-text transition-colors"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu overlay */}
+        <div className={clsx(
+          "fixed inset-0 top-20 z-40 bg-bg/95 backdrop-blur-xl md:hidden transition-all duration-300 ease-in-out border-t border-border",
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        )}>
+          <div className="flex flex-col p-6 space-y-8 h-full">
+            <nav className="flex flex-col space-y-6">
+              <a href="#problem" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">The Problem</a>
+              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">Features</a>
+              <a href="#open-source" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">Open Source</a>
+            </nav>
+
+            <div className="pt-8 border-t border-border space-y-4">
+              <button
+                onClick={handleDemoLogin}
+                className="btn-primary w-full py-4 text-lg justify-center flex items-center gap-2"
+              >
+                View Live Demo <ArrowRight size={20} />
+              </button>
+              <div className="flex items-center justify-between px-4 py-2 bg-surface rounded-xl border border-border">
+                <span className="text-sm font-bold text-muted">Theme & Social</span>
+                <div className="flex items-center gap-4">
+                  <TwitterLink />
+                  <ThemeToggle />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pb-12">
+              <Link
+                href="https://github.com/GalaxyBuilt/MultiSaaS"
+                target="_blank"
+                className="flex items-center justify-center gap-3 p-4 rounded-xl bg-surface border border-border hover:border-accent transition-all animate-pulse-subtle"
+              >
+                <Github size={20} />
+                <span className="font-display font-black">Star us on GitHub</span>
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -70,7 +120,7 @@ export default function LandingPage() {
             <button onClick={handleDemoLogin} className="btn-primary px-8 py-4 text-lg w-full sm:w-auto shadow-xl shadow-accent/20">
               View Live Demo <ArrowRight size={20} />
             </button>
-            <Link href="https://github.com/nelsonnefu/multisaas" target="_blank" className="btn-secondary px-8 py-4 text-lg w-full sm:w-auto">
+            <Link href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="btn-secondary px-8 py-4 text-lg w-full sm:w-auto">
               <GitFork size={20} /> Fork the Repo
             </Link>
           </div>
@@ -213,14 +263,14 @@ export default function LandingPage() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 pt-4">
-            <Link href="https://github.com/nelsonnefu/multisaas" target="_blank" className="flex items-center gap-3 px-6 py-3 rounded-xl bg-surface border border-border hover:border-accent group transition-all">
+            <Link href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="flex items-center gap-3 px-6 py-3 rounded-xl bg-surface border border-border hover:border-accent group transition-all">
               <Star className="text-yellow-400 group-hover:scale-110 transition-transform" size={20} fill="currentColor" />
               <div className="text-left">
                 <p className="text-xs font-bold uppercase text-muted tracking-widest">Star on</p>
                 <p className="font-display font-black text-text">GitHub</p>
               </div>
             </Link>
-            <Link href="https://github.com/nelsonnefu/multisaas/fork" target="_blank" className="flex items-center gap-3 px-6 py-3 rounded-xl bg-surface border border-border hover:border-accent group transition-all">
+            <Link href="https://github.com/GalaxyBuilt/MultiSaaS/fork" target="_blank" className="flex items-center gap-3 px-6 py-3 rounded-xl bg-surface border border-border hover:border-accent group transition-all">
               <GitFork className="text-accent group-hover:scale-110 transition-transform" size={20} />
               <div className="text-left">
                 <p className="text-xs font-bold uppercase text-muted tracking-widest">Fork the</p>
@@ -243,8 +293,9 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="space-y-4 max-w-xs text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2.5">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center font-display font-black text-white text-base"
-                style={{ background: 'linear-gradient(135deg, #7c6aff, #00e5cc)' }}>M</div>
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-border">
+                <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+              </div>
               <span className="font-display font-black text-text text-xl tracking-tight">MultiSaaS</span>
             </div>
             <p className="text-sm text-muted leading-relaxed">
@@ -268,8 +319,8 @@ export default function LandingPage() {
                 <GitHubLink />
               </div>
               <ul className="space-y-2 text-sm mt-4">
-                <li><Link href="https://github.com/galaxybuilt" target="_blank" className="hover:text-accent transition-colors">GitHub Repo</Link></li>
-                <li><Link href="https://x.com/galaxybuilt" target="_blank" className="hover:text-accent transition-colors">Twitter Feed</Link></li>
+                <li><Link href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="hover:text-accent transition-colors">GitHub Repo</Link></li>
+                <li><Link href="https://x.com/GalaxyBuilt" target="_blank" className="hover:text-accent transition-colors">Twitter Feed</Link></li>
               </ul>
             </div>
             <div className="space-y-4 hidden sm:block">
