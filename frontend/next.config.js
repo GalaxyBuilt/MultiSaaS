@@ -1,16 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   images: {
+    unoptimized: true,
     domains: ['avatars.githubusercontent.com', 'logo.clearbit.com'],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/:path*`,
-      },
-    ]
-  },
 }
+
+module.exports = nextConfig
 
 module.exports = nextConfig
