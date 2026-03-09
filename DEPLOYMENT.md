@@ -6,24 +6,28 @@ To get MultiSaaS live on `multisaas.xyz` for $0, follow these exact settings in 
 - Go to **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
 - Select the `MultiSaaS` repository.
 
-> [!IMPORTANT]
-> **CRITICAL: FIX FOR THE "BUILD FAILED" ERROR**
-> Cloudflare is likely trying to build the entire repository (including the backend), which is causing the failure. You MUST set the **Root Directory** to `frontend` in the Cloudflare Build Settings. This tells Cloudflare to only build the demo website and ignore the server-side code.
+## 🚨 IF YOUR BUILD FAILED WITH "Cannot find cwd: /out"
+This means you swapped the fields! Cloudflare is trying to "start" the build inside a folder that doesn't exist yet.
 
-## 2. Build Settings (EXACT SETTINGS)
-- **Framework preset**: `Next.js`
-- **Root directory**: `frontend`  <-- [MAKE SURE THIS IS SET]
-- **Build command**: `npm run build`
-- **Build output directory**: `out`
+**To fix it:**
+1.  Go to **Settings** > **Build & deployments** > **Configure methods and paths**.
+2.  Ensure **Root directory** is `frontend`.
+3.  Ensure **Build output directory** is `out`.
+
+## 2. Global Build Settings (EXACT FIELDS)
+| Dashboard Field | Value to Enter |
+| :--- | :--- |
+| **Framework preset** | `Next.js` |
+| **Root directory** | `frontend` |
+| **Build command** | `npm run build` |
+| **Build output directory** | `out` |
 
 ## 3. Environment Variables
-Add this variable to ensure the demo data loads correctly:
+Add this variable under **Settings** > **Environment variables** to ensure the demo data loads:
 - `NEXT_PUBLIC_DEMO_MODE` = `true`
 
 ## 4. Domain Setup
-- Once the build succeeds, go to the **Custom Domains** tab.
-- Add `multisaas.xyz`.
-- Cloudflare will automatically handle the SSL and DNS.
+- Add `multisaas.xyz` in the **Custom Domains** tab.
 
 ---
 
