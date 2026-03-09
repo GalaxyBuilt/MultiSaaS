@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, CheckCircle2, LayoutDashboard, Zap, Shield, Globe, Star, Github, GitFork, Sparkles, Layout, Layers, Bot } from 'lucide-react'
-import { ThemeToggle, TwitterLink } from '@/components/ui'
+import { ThemeToggle, TwitterLink, GitHubLink } from '@/components/ui'
 import { useAuthStore } from '@/lib/store'
 
 export default function LandingPage() {
@@ -263,9 +263,13 @@ export default function LandingPage() {
             </div>
             <div className="space-y-4">
               <h5 className="text-xs font-bold uppercase text-muted tracking-widest">Social</h5>
-              <ul className="space-y-2 text-sm flex flex-col items-start">
-                <li><TwitterLink /></li>
-                <li><Link href="https://github.com/nelsonnefu" target="_blank" className="hover:text-accent transition-colors">GitHub</Link></li>
+              <div className="flex items-center gap-3">
+                <TwitterLink />
+                <GitHubLink />
+              </div>
+              <ul className="space-y-2 text-sm mt-4">
+                <li><Link href="https://github.com/galaxybuilt" target="_blank" className="hover:text-accent transition-colors">GitHub Repo</Link></li>
+                <li><Link href="https://x.com/galaxybuilt" target="_blank" className="hover:text-accent transition-colors">Twitter Feed</Link></li>
               </ul>
             </div>
             <div className="space-y-4 hidden sm:block">

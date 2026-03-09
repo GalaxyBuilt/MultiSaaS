@@ -149,3 +149,4 @@ export function StatusDot({ status }: { status: string }) {
 
 export * from './ThemeToggle'
 export * from './TwitterLink'
+export * from './GitHubLink'
