@@ -25,7 +25,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2.5 group cursor-pointer" onClick={() => router.push('/')}>
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-border">
-              <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+              <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
             </div>
             <span className="font-display font-black text-text text-2xl tracking-tight">MultiSaaS</span>
           </div>
@@ -294,7 +294,7 @@ export default function LandingPage() {
           <div className="space-y-4 max-w-xs text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2.5">
               <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-border">
-                <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+                <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
               </div>
               <span className="font-display font-black text-text text-xl tracking-tight">MultiSaaS</span>
             </div>
@@ -335,8 +335,11 @@ export default function LandingPage() {
         </div>
 
         <div className="max-w-7xl mx-auto pt-16 mt-16 border-t border-border/50 text-center">
-          <p className="text-xs text-muted font-bold tracking-widest uppercase">
-            Built by <a href="https://galaxybuilt.dev" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GalaxyBuilt</a> — © 2026
+          <p className="text-xs text-muted font-bold tracking-widest uppercase mb-2">
+            Developed by <a href="https://galaxybuilt.dev" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GalaxyBuilt</a>
+          </p>
+          <p className="text-[10px] text-muted tracking-widest">
+            View the <a href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="hover:text-text transition-colors">MultiSaaS open-source project</a> — © 2026
           </p>
         </div>
       </footer>

@@ -68,7 +68,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-5 py-5 border-b border-border">
         <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-border flex-shrink-0">
-          <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+          <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
         </div>
         <span className="font-display font-bold text-white text-lg">MultiSaaS</span>
         <button className="ml-auto lg:hidden text-muted hover:text-white" onClick={() => setSidebarOpen(false)}>

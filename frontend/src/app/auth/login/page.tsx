@@ -59,7 +59,7 @@ function LoginForm() {
             <div className="text-center mb-8">
                 <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
                     <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-border">
-                        <img src="/galaxy-logo.jpeg" alt="Galaxy" className="w-full h-full object-cover" />
+                        <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
                     </div>
                     <span className="font-display font-bold text-xl text-text">MultiSaaS</span>
                 </Link>
