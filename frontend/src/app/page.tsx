@@ -20,83 +20,52 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-bg selection:bg-accent/30 selection:text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 group cursor-pointer" onClick={() => router.push('/')}>
-            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center transition-transform group-hover:scale-110 border border-border">
-              <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-display font-black text-text text-2xl tracking-tight">MultiSaaS</span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#problem" className="text-sm font-bold text-muted hover:text-text transition-colors">The Problem</a>
-            <a href="#features" className="text-sm font-bold text-muted hover:text-text transition-colors">Features</a>
-            <a href="#open-source" className="text-sm font-bold text-muted hover:text-text transition-colors">Open Source</a>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-2 mr-2">
-              <TwitterLink />
-              <ThemeToggle />
-            </div>
-            <button onClick={handleDemoLogin} className="btn-secondary hidden md:flex">Demo Login</button>
-            <Link href="https://github.com/GalaxyBuilt/MultiSaaS" target="_blank" className="btn-primary hidden sm:flex">
-              <Github size={18} /> <span>Star on GitHub</span>
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-muted hover:text-text transition-colors"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
         </div>
+      </nav>
 
-        {/* Mobile menu overlay */}
-        <div className={clsx(
-          "fixed inset-0 top-20 z-40 bg-bg/95 backdrop-blur-xl md:hidden transition-all duration-300 ease-in-out border-t border-border",
-          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-        )}>
-          <div className="flex flex-col p-6 space-y-8 h-full">
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-[60] animate-fade-in">
+          <div className="absolute inset-0 bg-bg" onClick={() => setMobileMenuOpen(false)} />
+          <div className="relative h-full flex flex-col p-6 space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg overflow-hidden border border-border">
+                  <img src="/hd-logo.jpg" alt="Galaxy" className="w-full h-full object-cover" />
+                </div>
+                <span className="font-display font-black text-text text-xl">MultiSaaS</span>
+              </div>
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-muted hover:text-text transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
             <nav className="flex flex-col space-y-6">
-              <a href="#problem" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">The Problem</a>
-              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">Features</a>
-              <a href="#open-source" onClick={() => setMobileMenuOpen(false)} className="text-xl font-bold text-text hover:text-accent transition-colors">Open Source</a>
+              <a href="#problem" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display font-bold text-muted hover:text-accent transition-colors">The Problem</a>
+              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display font-bold text-muted hover:text-accent transition-colors">Features</a>
+              <a href="#open-source" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display font-bold text-muted hover:text-accent transition-colors">Open Source</a>
             </nav>
 
-            <div className="pt-8 border-t border-border space-y-4">
+            <div className="mt-auto space-y-4 pb-12">
               <button
                 onClick={handleDemoLogin}
-                className="btn-primary w-full py-4 text-lg justify-center flex items-center gap-2"
+                className="btn-primary w-full py-4 text-lg justify-center flex items-center gap-2 shadow-lg shadow-accent/20"
               >
                 View Live Demo <ArrowRight size={20} />
               </button>
-              <div className="flex items-center justify-between px-4 py-2 bg-surface rounded-xl border border-border">
-                <span className="text-sm font-bold text-muted">Theme & Social</span>
-                <div className="flex items-center gap-4">
-                  <TwitterLink />
-                  <ThemeToggle />
-                </div>
+              
+              <div className="flex items-center justify-center gap-6 pt-4">
+                <TwitterLink />
+                <GitHubLink />
+                <ThemeToggle />
               </div>
-            </div>
-
-            <div className="mt-auto pb-12">
-              <Link
-                href="https://github.com/GalaxyBuilt/MultiSaaS"
-                target="_blank"
-                className="flex items-center justify-center gap-3 p-4 rounded-xl bg-surface border border-border hover:border-accent transition-all animate-pulse-subtle"
-              >
-                <Github size={20} />
-                <span className="font-display font-black">Star us on GitHub</span>
-              </Link>
             </div>
           </div>
         </div>
-      </nav>
+      )}
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
